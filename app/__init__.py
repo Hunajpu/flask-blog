@@ -7,6 +7,8 @@ from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired
+from flask_mail import Mail
+import smtplib
 
 load_dotenv()
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -34,8 +36,21 @@ def index():
 
 @app.route('/contact')
 def contact():
+	
     return render_template('contacts.html', title="Contact", url=os.getenv("URL"))
 
+@app.route('/form',methods=["POST"])
+def form():
+	name = request.form.get("name")
+	email = request.form.get("email")
+	msg = request.form.get("msg")
+	
+	server = smtplib.SMTP("smtp.gmail.com", 587)
+	server.starttls()
+	server.login("irodrigoro@gmail.com", os.getenv("PASS"))
+	server.sendmail("irodrigoro@gmail.com", "irodrigoro@gmail.com", name+" "+email+" "+msg)
+	
+	return render_template("form.html", title="Form",na=name, em=email, mens=msg)
 
 @app.route('/blog', methods=['GET', 'POST'])
 def blog():
