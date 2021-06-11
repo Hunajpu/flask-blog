@@ -7,7 +7,6 @@ from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired
-from flask_mail import Mail
 import smtplib
 
 load_dotenv()
@@ -47,8 +46,8 @@ def form():
 	
 	server = smtplib.SMTP("smtp.gmail.com", 587)
 	server.starttls()
-	server.login("irodrigoro@gmail.com", os.getenv("PASS"))
-	server.sendmail("irodrigoro@gmail.com", "irodrigoro@gmail.com", name+" "+email+" "+msg)
+	server.login("abeaboagye7@gmail.com", os.getenv("PASS"))
+	server.sendmail("abeaboagye7@gmail.com", "abeaboagye7@gmail.com", name+" "+email+" "+msg)
 	
 	return render_template("form.html", title="Form",na=name, em=email, mens=msg)
 
