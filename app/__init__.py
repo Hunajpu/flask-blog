@@ -32,10 +32,9 @@ class PostForm(FlaskForm):
 def health():
 	return "<p>Hello</p>"
 
-def index():
-    return render_template('index.html', title="Firstname Lastname", url=os.getenv("URL"))
-
 @app.route('/')
+def index():
+    return render_template('index.html', title="Rodrigo Luna", url=os.getenv("URL"))
 
 
 @app.route('/contact')
