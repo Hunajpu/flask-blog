@@ -28,9 +28,14 @@ class PostForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
-@app.route('/')
+@app.route('/health')
+def health():
+	return "<p>Hello</p>"
+
 def index():
     return render_template('index.html', title="Firstname Lastname", url=os.getenv("URL"))
+
+@app.route('/')
 
 
 @app.route('/contact')
@@ -46,8 +51,8 @@ def form():
 	
 	server = smtplib.SMTP("smtp.gmail.com", 587)
 	server.starttls()
-	server.login("abeaboagye7@gmail.com", os.getenv("PASS"))
-	server.sendmail("abeaboagye7@gmail.com", "abeaboagye7@gmail.com", name+" "+email+" "+msg)
+	server.login("irodrigoro@gmail.com", os.getenv("PASS"))
+	server.sendmail("irodrigoro@gmail.com", "irodrigoro@gmail.com", name+" "+email+" "+msg)
 	
 	return render_template("form.html", title="Form",na=name, em=email, mens=msg)
 
