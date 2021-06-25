@@ -1,8 +1,8 @@
 import os
 from flask import Flask, render_template, send_from_directory, redirect, url_for, session, request
+from . import db
 from flask_bootstrap import Bootstrap
 from dotenv import load_dotenv
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField
@@ -14,13 +14,9 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] =\
-    'sqlite:///' + os.path.join(basedir, 'data.sqlite')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-SECRET_KEY = os.urandom(32)
-app.config['SECRET_KEY'] = SECRET_KEY
-db = SQLAlchemy(app)
-bootstrap = Bootstrap(app)
+app.config['DATABASE'] = os.path.join(os.getcwd(), 'flask.sqlite')
+db.init_app(app)
+
 
 
 class PostForm(FlaskForm):
