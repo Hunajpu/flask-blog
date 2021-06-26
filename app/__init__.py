@@ -52,7 +52,7 @@ def login():
             return error, 418
     
     ## TODO: Return a login page
-    return "Login Page not yet implemented", 501
+    return render_template('login.html')
 
 @app.route('/register', methods=('GET', 'POST'))
 def register():
