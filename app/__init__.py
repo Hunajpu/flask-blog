@@ -16,9 +16,10 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 app = Flask(__name__)
+global admin
+admin = 0
 app.config['DATABASE'] = os.path.join(os.getcwd(), 'flask.sqlite')
 db.init_app(app)
-
 
 
 class PostForm(FlaskForm):
@@ -30,13 +31,22 @@ class PostForm(FlaskForm):
 def health():
 	return "<p>Hello</p>", 200
 
+@app.route('/logout')
+def logout():
+    global admin
+    admin = 0
+    return render_template('index.html', title="Rodrigo Luna", session_type=admin, url=os.getenv("URL")), 200 
+
 @app.route('/login', methods=('GET', 'POST'))
 def login():
+    error = 'e'
+    global admin
+    admin = 0
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        db = get_db()
         error = None
+        db = get_db()
         user = db.execute(
             'SELECT * FROM user WHERE username = ?', (username,)
         ).fetchone()
@@ -47,15 +57,16 @@ def login():
             error = 'Incorrect password.'
 
         if error is None:
-            return "Login Successful", 200 
+            admin = 1
+            return render_template('index.html', title="Rodrigo Luna", session_type=admin, url=os.getenv("URL")), 200 
         else:
-            return error, 418
-    
-    ## TODO: Return a login page
-    return render_template('login.html')
+            return render_template('login.html', err=error), 418
+
+    return render_template('login.html', title="Login", session_type=admin, err=error)
 
 @app.route('/register', methods=('GET', 'POST'))
 def register():
+    global admin
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
@@ -86,13 +97,14 @@ def register():
 
 @app.route('/')
 def index():
-    return render_template('index.html', title="Rodrigo Luna", url=os.getenv("URL"))
+    global admin
+    return render_template('index.html', title="Rodrigo Luna", session_type=admin, url=os.getenv("URL"))
 
 
 @app.route('/contact')
 def contact():
-	
-    return render_template('contacts.html', title="Contact", url=os.getenv("URL"))
+    global admin
+    return render_template('contacts.html', title="Contact", session_type=admin, url=os.getenv("URL"))
 
 @app.route('/form',methods=["POST"])
 def form():
@@ -118,17 +130,18 @@ def blog():
 
 @app.route('/projects')
 def projects():
-	# Hardcoded projects names
-	robotics_projects = ['Sumo Robot/sumo.jpg', 'Line Following Robot/line_follower.png', 'Soccer Robot/soccer_robot.jpeg', 'Fire Extinguishing Robot/fire_robot.jpg']
-	electronics_projects = ['Cell Phone Detector/Cell-phone-detector.jpg', 'Mobile Jammer Circuit/Mobile-Jammer.jpg']
-	ai_projects = ['Font Classifier Perceptron/robot_img_example.png']
-	misc_projects = ['Snake Video Game/snake.png']
-	projects_names = [robotics_projects, electronics_projects, ai_projects, misc_projects]
+    global admin
+    # Hardcoded projects names
+    robotics_projects = ['Sumo Robot/sumo.jpg', 'Line Following Robot/line_follower.png', 'Soccer Robot/soccer_robot.jpeg', 'Fire Extinguishing Robot/fire_robot.jpg']
+    electronics_projects = ['Cell Phone Detector/Cell-phone-detector.jpg', 'Mobile Jammer Circuit/Mobile-Jammer.jpg']
+    ai_projects = ['Font Classifier Perceptron/robot_img_example.png']
+    misc_projects = ['Snake Video Game/snake.png']
+    projects_names = [robotics_projects, electronics_projects, ai_projects, misc_projects]
 	
-	page = request.args.get('page')
-	if page and page.isdigit():
-		page = int(page)
-	else:
-		page = 1
+    page = request.args.get('page')
+    if page and page.isdigit():
+        page = int(page)
+    else:
+	    page = 1
 	
-	return render_template('projects.html', title="Projects", url=os.getenv("URL"), projects=projects_names,pag = page)
+    return render_template('projects.html', title="Projects", session_type=admin, url=os.getenv("URL"), projects=projects_names,pag = page)
