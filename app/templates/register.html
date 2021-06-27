@@ -1,0 +1,31 @@
+{% extends 'base.html' %} 
+{% block content %}
+<div class="mx-auto text-center" style="width: 300px">
+  <form class="form-signin" method="POST">
+    <h1 class="h3 mb-3 font-weight-normal">Register new user</h1>
+    <label for="inputUser" class="sr-only">User</label>
+    <input
+      type="text"
+      id="inputUser"
+      class="form-control"
+      placeholder="Username"
+      name="username"
+      required
+      autofocus
+    />
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input
+      type="password"
+      id="inputPassword"
+      class="form-control"
+      placeholder="Password"
+      name="password"
+      required
+    />
+    <button class="btn btn-lg btn-primary btn-dark btn-block" type="submit">
+      Register
+    </button>
+    <p class="mt-5 mb-3 text-muted">{% if err != 'e' %}{{err}}{% endif %} 2021</p>
+  </form>
+</div>
+{% endblock %}

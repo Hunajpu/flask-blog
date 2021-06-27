@@ -60,12 +60,13 @@ def login():
             admin = 1
             return render_template('index.html', title="Rodrigo Luna", session_type=admin, url=os.getenv("URL")), 200 
         else:
-            return render_template('login.html', err=error), 418
+            return render_template('login.html', title="Login", session_type=admin, err=error), 418
 
     return render_template('login.html', title="Login", session_type=admin, err=error)
 
 @app.route('/register', methods=('GET', 'POST'))
 def register():
+    error = 'e'
     global admin
     if request.method == 'POST':
         username = request.form.get('username')
@@ -88,12 +89,11 @@ def register():
                 (username, generate_password_hash(password))
             )
             db.commit()
-            return f"User {username} created successfully"
+            return render_template('register.html',  title="Register", session_type=admin, err="Register successful")
         else:
-            return error, 418
+            return render_template('register.html',  title="Register", session_type=admin, err=error), 418
 
-    ## TODO: Return a restister page
-    return "Register Page not yet implemented", 501
+    return render_template('register.html', title="Register", session_type=admin, err=error)
 
 @app.route('/')
 def index():
