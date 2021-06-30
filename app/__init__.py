@@ -57,7 +57,6 @@ def login():
             error = 'Incorrect password.'
 
         if error is None:
-            admin = 1
             return render_template('index.html', title="Rodrigo Luna", session_type=admin, url=os.getenv("URL")), 200 
         else:
             return render_template('login.html', title="Login", session_type=admin, err=error), 418
