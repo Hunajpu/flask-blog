@@ -1,0 +1,19 @@
+name: Docker Builds
+
+on:
+  push:
+    branches:
+      - master
+    pull_request:
+      - master
+
+jobs:
+  buildx:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Docker build
+        run: |
+          docker-compose up -d --build
