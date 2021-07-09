@@ -4,6 +4,7 @@ __pycache__
 .env
 .sqlite
 .python3-virtualenv/*
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
