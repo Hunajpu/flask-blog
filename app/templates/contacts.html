@@ -1,18 +1,60 @@
-{% extends 'base.html' %}
-{% block content %}
-	<form action="/form" method="POST">
-	<div class="mb-3 postbox">
-	  <label for="formControlInput1" class="form-label">Name</label>
-	  <input class="form-control" type="text" aria-label="default input example" name="name">
-	</div>
-    <div class="mb-3 postbox">
-	  <label for="formControlInput2" class="form-label">Email address</label>
-	  <input type="email" class="form-control" id="formControlInput2" placeholder="name@example.com" name="email">
-	</div>
-	<div class="mb-3 postbox">
-	  <label for="exampleFormControlTextarea1" class="form-label">Message</label>
-	  <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" name="msg"></textarea>
-	</div>
-	<button type="submit" class="btn btn-dark postbox">Submit</button>
-	</form>
+{% extends 'base.html' %} {% block content %}
+<form action="/form" method="POST">
+  <div class="mb-3 postbox">
+    <label for="formControlInput1" class="form-label">Name</label>
+    <input
+      class="form-control"
+      type="text"
+      aria-label="default input example"
+      name="name"
+    />
+  </div>
+  <div class="mb-3 postbox">
+    <label for="formControlInput2" class="form-label">Email address</label>
+    <input
+      type="email"
+      class="form-control"
+      id="formControlInput2"
+      placeholder="name@example.com"
+      name="email"
+    />
+  </div>
+  <div class="mb-3 postbox">
+    <label for="exampleFormControlTextarea1" class="form-label">Message</label>
+    <textarea
+      class="form-control"
+      id="exampleFormControlTextarea1"
+      rows="6"
+      name="msg"
+    ></textarea>
+  </div>
+  <button type="submit" class="btn btn-dark postbox">Submit</button>
+</form>
+<div class="d-flex justify-content-center postbox">
+  <a
+    class="btn btn-primary social_btn"
+    style="background-color: #55acee"
+    href="https://twitter.com/RodirgoLuna"
+    role="button"
+    btn-lg
+    ><i class="bi-twitter"></i
+  ></a>
+  <a
+    class="btn btn-primary social_btn"
+    style="background-color: #0082ca"
+    href="https://linkedin.com/in/rodrigolunareyes"
+    role="button"
+    btn-lg
+    ><i class="bi-linkedin"></i
+  ></a>
+  <a
+    class="btn btn-primary social_btn"
+    style="background-color: #333333"
+    href="https://github.com/Hunajpu"
+    role="button"
+    btn-lg
+    ><i class="bi-github"></i
+  ></a>
+</div>
+
 {% endblock %}

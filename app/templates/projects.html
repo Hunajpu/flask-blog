@@ -1,31 +1,42 @@
-{% extends 'base.html' %}
-{% block content %}
-    <div class="container">
-		<div class="row">
-			<div class="col">
-				<nav aria-label="Projects navigation">
-				  <ul class="pagination justify-content-center dark">
-				    <li class="page-item {% if pag==1 %}active{% endif %}"><a class="page-link" href="./projects?page=1">Robotics</a></li>
-				    <li class="page-item {% if pag==2 %}active{% endif %}"><a class="page-link" href="./projects?page=2">Electronics</a></li>
-				    <li class="page-item {% if pag==3 %}active{% endif %}"><a class="page-link" href="./projects?page=3">AI</a></li>
-				    <li class="page-item {% if pag==4 %}active{% endif %}"><a class="page-link" href="./projects?page=4">Miscellaneous</a></li>
-				  </ul>
-				</nav>
-			</div>
-		</div>
-		<div class="row">
-			{% for project in projects[pag-1] %}
-			<div class="col">
-				<div class="card" style="width: 18rem;">
-				  <img src="/static/img/{{project.split('/')[1]}}" class="card-img-top" alt="...">
-				  <div class="card-body">
-				    <h5 class="card-title">{{project.split('/')[0]}}</h5>
-				    <p class="card-text">Some cool project description goes here.</p>
-				    <a href="#" class="btn btn-primary btn-dark">Go somewhere</a>
-				  </div>
-				</div>
-			</div>
-			{% endfor %}
-		</div>
-   </div>
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <nav aria-label="Projects navigation">
+        <ul class="pagination justify-content-center dark">
+          <li class="page-item {% if pag==1 %}active{% endif %}">
+            <a class="page-link" href="./projects?page=1">Robotics</a>
+          </li>
+          <li class="page-item {% if pag==2 %}active{% endif %}">
+            <a class="page-link" href="./projects?page=2">Electronics</a>
+          </li>
+          <li class="page-item {% if pag==3 %}active{% endif %}">
+            <a class="page-link" href="./projects?page=3">AI</a>
+          </li>
+          <li class="page-item {% if pag==4 %}active{% endif %}">
+            <a class="page-link" href="./projects?page=4">Miscellaneous</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="row justify-content-center postbox">
+    {% for project in projects[pag-1] %}
+    <div class="col">
+      <div class="card project_card" style="width: 18rem">
+        <img
+          src="/static/img/{{project.split('/')[1]}}"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{project.split('/')[0]}}</h5>
+          <p class="card-text">Some cool project description goes here.</p>
+          <a href="#" class="btn btn-primary btn-dark">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
